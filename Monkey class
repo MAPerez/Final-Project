@@ -1,0 +1,136 @@
+import javax.swing.JOptionPane;
+
+public class Monkey extends Human
+{
+  private int trackMovesCount = 0;
+	private int walk = 1;
+	private int run = 2;
+	private int turn = 3;
+	
+	private int monkeySpeed;
+	private int monkeyAcceleration;
+	private int monkeyRunningDistance;
+	private int monkeyBodyLiftRatio;
+	
+	private int[] monkeyHistoryArray = new int[100];
+	
+	public Monkey(String Name, String Gender, int Age, int Weight)
+	{
+		super(Name,Gender,Age,Weight);
+		
+		x = 0;
+		y = 0;
+		
+		monkeySpeed = 2;  
+		monkeyAcceleration = 10;
+		monkeyRunningDistance = 50;
+		monkeyBodyLiftRatio = 20;
+		
+	}
+	
+	// Encapsulation: Variables that only their values can be retrieved
+	
+	public int getSpeed()
+	{
+		return monkeySpeed;
+	}
+	
+	public int getAcceleration()
+	{
+		return monkeyAcceleration;
+	}
+	
+	public int getRunningDistance()
+	{
+		return monkeyRunningDistance;
+	}
+	
+	public int getbodyLiftRatio()
+	{
+		return monkeyBodyLiftRatio;
+	}
+	
+	// Methods
+	
+	public void Talk() 
+	{
+		JOptionPane.showMessageDialog(null, "HEEEEEH!");
+	}
+	
+	public void Lift()
+	{
+		JOptionPane.showMessageDialog(null, "The monkey has lifted something.");
+	}
+	
+	
+	public void Walk()
+	{
+		monkeyHistoryArray[trackMovesCount] = walk;
+		
+		y+= 2;
+		
+		if ( y > 10 && x != 10)
+		{
+			y = (y - 1) - 10;
+			x+= 1;
+		}
+		
+		++trackMovesCount;
+		
+	}
+	
+	public void Run()
+	{
+		monkeyHistoryArray[trackMovesCount] = run;
+		
+		y+= 4;
+		
+		if ( y > 10 && x != 10)
+		{
+			y = (y - 1) - 10;
+			x+= 1;
+		}
+		
+		++trackMovesCount;
+	}
+	
+	public void Turn()
+	{
+		monkeyHistoryArray[trackMovesCount] = turn;
+		
+		x+= 1;
+		
+		if ( x > 10)
+		{
+			x = 10;
+		}
+		
+		++trackMovesCount;
+	}
+	
+	
+	public void DisplayHistoryForMonkey()
+	{
+		String message = "Monkey Move History: \n";
+		
+		for ( int i = 0; i < monkeyHistoryArray.length; i++)
+		{
+			if (monkeyHistoryArray[i] == walk )
+			{
+				message+= "Walked - 2 steps \n";
+			}
+			else if(monkeyHistoryArray[i] == run )
+			{
+				message+= "Ran - 4 steps \n";
+			}
+			else if (monkeyHistoryArray[i] == turn)
+			{
+				message+= "Turned - 1 step \n";
+			}
+		}
+		
+		JOptionPane.showMessageDialog(null,  message );
+	}
+	
+
+}
