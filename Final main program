@@ -1,0 +1,64 @@
+import javax.swing.JOptionPane;
+public class Final
+{
+
+  public static void main(String[] args)
+	{
+		RaceGame game = new RaceGame();
+		int counter = 0;
+		
+		game.DisplayBoard(); // Display initial board
+		
+		do
+		{
+			++counter;
+		
+			game.HumanMove(); // 1. Implement random move for human
+			
+			game.DisplayBoard(); 	// show board
+						
+			if ( counter > 1) // check if collision
+			{
+				game.CheckIfCollision();
+			}
+			
+			if (game.CheckIfHumanIsWinner()) // check if human is winner
+			{
+				JOptionPane.showMessageDialog(null, "The human won the race" );
+				game.getHumanMoveHistory();
+				break;
+			}
+	
+			game.MonkeyMove(); // 2. Implement random move for monkey
+				
+			game.DisplayBoard(); // show board 
+			
+			game.CheckIfCollision(); // check if collision
+				
+			if (game.CheckIfMonkeyIsWinner() ) 	// check if monkey is winner
+			{
+				JOptionPane.showMessageDialog(null, "The monkey won the race" );
+				game.getMonkeyMoveHistory();
+				break;
+			}
+			
+				
+			game.RobotMove(); // 3. Implement random move for robot
+			
+			game.DisplayBoard(); // show board
+
+			game.CheckIfCollision(); // check if collision
+			
+			if (game.CheckIfRobotIsWinner() ) // check if robot is winner
+				
+			{
+				JOptionPane.showMessageDialog(null, "The robot won the race" );
+				game.getRobotMoveHistory();
+				break;
+			}
+			
+		}while(true);
+						
+	}
+
+}
