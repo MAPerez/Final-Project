@@ -1,0 +1,123 @@
+import javax.swing.JOptionPane;
+
+public class Robot extends Human
+{
+  private int robotSpeed;
+	private int robotAcceleration;
+	private int robotRunningDistance;
+	private int robotBodyLiftRatio;
+	
+	private int trackMovesCount = 0;
+	private int walk = 1;
+	private int run = 2;
+	private int turn = 3;
+	private int[] robotHistoryArray = new int[100];
+	
+	public Robot(String Name, String Gender, int Age, int Weight)
+	{
+		super(Name,Gender,Age,Weight);
+		x = 0;
+		y = 0;
+		
+		robotSpeed = 6; 
+		robotAcceleration = 20;
+		robotRunningDistance = 50;
+		robotBodyLiftRatio = 60;
+	}
+	
+	// Encapsulation: Variables that only their values can be retrieved
+	
+	public int getSpeed()
+	{
+		return robotSpeed;
+	}
+	
+	public int getAcceleration()
+	{
+		return robotAcceleration;
+	}
+	
+	public int getRunningDistance()
+	{
+		return robotRunningDistance;
+	}
+	
+	public int getbodyLiftRatio()
+	{
+		return robotBodyLiftRatio;
+	}
+	
+	// Methods
+	
+	public void Lift()
+	{
+		JOptionPane.showMessageDialog(null, "The robot has lifted something.");
+	}
+	
+	public void Walk()
+	{
+		robotHistoryArray[trackMovesCount] = walk;
+		
+		y+= 5;
+		
+		if ( y > 10 && x != 10)
+		{
+			y = (y - 1) - 10;
+			x+= 1;
+		}
+		
+		++trackMovesCount;
+	}
+	
+	public void Run()
+	{
+		robotHistoryArray[trackMovesCount] = run;
+		
+		y+= 7;
+		
+		if ( y > 10 && x != 10)
+		{
+			y = (y - 1) - 10;
+			x+= 1;
+		}
+		
+		++trackMovesCount;
+	}
+	
+	public void Turn()
+	{
+		robotHistoryArray[trackMovesCount] = turn;
+		
+		x+= 1;
+		
+		if ( x > 10)
+		{
+			x = 10;
+		}
+		
+		++trackMovesCount;
+	}
+	
+	public void DisplayHistoryForRobot()
+	{
+		String message = "Robot Move History: \n";
+		
+		for ( int i = 0; i < robotHistoryArray.length; i++)
+		{
+			if (robotHistoryArray[i] == walk )
+			{
+				message+= "Walked - 5 steps \n";
+			}
+			else if( robotHistoryArray[i] == run )
+			{
+				message+= "Ran - 7 steps \n";
+			}
+			else if (robotHistoryArray[i] == turn)
+			{
+				message+= "Turned - 1 step \n";
+			}
+		}
+		
+		JOptionPane.showMessageDialog(null,  message );
+	}
+}
