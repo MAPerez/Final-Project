@@ -2,7 +2,7 @@ import javax.swing.JOptionPane;
 
 public class RaceGame
 {
-  Human human = new Human("human", "male", 50, 150);
+  	Human human = new Human("human", "male", 50, 150);
 	Monkey monkey = new Monkey("monkey", "male", 20, 100);
 	Robot robot = new Robot("robot", "male", 50, 200);
 	
@@ -142,12 +142,9 @@ public class RaceGame
 		
 		if (human.getX() == monkey.getX() && human.getY() == monkey.getY() )
 		{
-		//if ( human.getbodyLiftRatio() > monkey.getbodyLiftRatio())
-		//{
-				human.Lift();
-				monkey.Collide();
-				DisplayBoard();
-		//}
+			human.Lift();
+			monkey.Collide();
+			DisplayBoard();
 		}
 		else if (human.getX() == robot.getX() && human.getY() == robot.getY() )
 		{
