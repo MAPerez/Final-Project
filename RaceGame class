@@ -1,0 +1,180 @@
+import javax.swing.JOptionPane;
+
+public class RaceGame
+{
+  Human human = new Human("human", "male", 50, 150);
+	Monkey monkey = new Monkey("monkey", "male", 20, 100);
+	Robot robot = new Robot("robot", "male", 50, 200);
+	
+	private int ROW = 11;
+	private int COL = 11;
+	
+	private String [][] array = new String[ROW][COL];
+	
+	public void DisplayBoard()
+	{
+		String board = "";
+
+		for ( int row = 0; row < ROW; row++)
+		{
+		
+			for (int col = 0; col < COL; col++)
+			{
+				
+				if (human.getX() == row && human.getY() == col && monkey.getX() == row && monkey.getY() == col && robot.getX() == row && robot.getY() == col )
+				{
+					array[row][col] = "|hmr";
+				}
+				else if(human.getX() == row && human.getY() == col && monkey.getX() == row && monkey.getY() == col)
+				{
+					array[row][col] = "|hm_";
+				}
+				else if(human.getX() == row && human.getY() == col && robot.getX() == row && robot.getY() == col)
+				{
+					array[row][col] = "|h_r";
+				}
+				else if (monkey.getX() == row && monkey.getY() == col && robot.getX() == row && robot.getY() == col)
+				{
+					array[row][col] = "|_mr";
+				}
+				else if (human.getX() == row && human.getY() == col )
+				{
+					array[row][col] = "|h__";
+				}
+				else if (monkey.getX() == row && monkey.getY() == col )
+				{
+					array[row][col] = "|_m_";
+									  
+				}
+				else if (robot.getX() == row && robot.getY() == col )
+				{
+					array[row][col] = "|__r";
+				}
+				else
+				{
+					array[row][col] = "|___";
+				}
+				
+				board += array[row][col];
+			}
+			
+			board+= "\n";
+		}
+		
+		JOptionPane.showMessageDialog(null,  board );
+	}
+	
+	
+	public void HumanMove()
+	{
+		int number = 1 + (int) (Math.random() * 3 );
+		switch(number)
+		{
+			case 1: human.Walk(); 
+			JOptionPane.showMessageDialog(null, "The human walked 3 steps\n" );
+			break;
+			
+			case 2: human.Run();
+			JOptionPane.showMessageDialog(null, "The human ran 5 steps\n" );
+			break;
+			
+			case 3: human.Turn();
+			JOptionPane.showMessageDialog(null, "The human turned\n" );
+			break;
+		}
+	}
+	
+	public void MonkeyMove()
+	{
+		int number = 1 + (int) (Math.random() * 3 );
+		switch(number)
+		{
+			case 1: monkey.Walk();
+			JOptionPane.showMessageDialog(null, "The monkey walked 2 steps\n" );
+			break;
+			
+			case 2: monkey.Run();
+			JOptionPane.showMessageDialog(null, "The monkey ran 4 steps\n" );
+			break;
+			
+			case 3: monkey.Turn();
+			JOptionPane.showMessageDialog(null, "The monkey turned\n" );
+			break;
+		}
+	}
+	
+	public void RobotMove()
+	{
+		int number = 1 + (int) (Math.random() * 3 );
+		switch(number)
+		{
+			case 1: robot.Walk();
+			JOptionPane.showMessageDialog(null, "The robot walked 5 steps\n" );
+			break;
+			
+			case 2: robot.Run();
+			JOptionPane.showMessageDialog(null, "The robot ran 7 steps\n" );
+			break;
+			
+			case 3: robot.Turn();
+			JOptionPane.showMessageDialog(null, "The robot turned\n" );
+			break;
+		}
+	}
+	
+	public boolean CheckIfHumanIsWinner()
+	{
+		return (human.getX() >= 10 && human.getY() >= 10 );
+	}
+	
+	public boolean CheckIfMonkeyIsWinner()
+	{
+		return (monkey.getX() >= 10 && monkey.getY() >= 10 );
+	}
+	
+	public boolean CheckIfRobotIsWinner()
+	{
+		return (robot.getX() >= 10 && robot.getY() >= 10 );
+	}
+	
+	public void CheckIfCollision()
+	{
+		
+		if (human.getX() == monkey.getX() && human.getY() == monkey.getY() )
+		{
+		//if ( human.getbodyLiftRatio() > monkey.getbodyLiftRatio())
+		//{
+				human.Lift();
+				monkey.Collide();
+				DisplayBoard();
+		//}
+		}
+		else if (human.getX() == robot.getX() && human.getY() == robot.getY() )
+		{
+			robot.Lift();
+			human.Collide();
+			DisplayBoard();
+		}
+		else if(monkey.getX() == robot.getX() && monkey.getY() == robot.getY())
+		{
+			robot.Lift();
+			monkey.Collide();
+			DisplayBoard();
+		}
+	}
+	
+	public void getHumanMoveHistory()
+	{
+		human.DisplayHistoryForHuman();
+	}
+	
+	public void getMonkeyMoveHistory()
+	{
+		monkey.DisplayHistoryForMonkey();
+	}
+	
+	public void getRobotMoveHistory()
+	{
+		robot.DisplayHistoryForRobot();
+	}
+}
