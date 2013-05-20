@@ -1,0 +1,212 @@
+import javax.swing.JOptionPane;
+
+public class Human
+{
+  private String name;
+	private String gender;
+	private int age;
+	private int weight;
+	
+	private int trackMovesCount = 0;
+	private int walk = 1;
+	private int run = 2;
+	private int turn = 3;
+	
+	private int speed;
+	private int acceleration;
+	private int runningDistance;
+	private int bodyLiftRatio;
+	
+	protected int x;
+	protected int y;
+	
+	private int[] historyArray = new int[100];
+
+	
+	public Human(String Name, String Gender, int Age, int Weight)
+	{
+		name = Name;
+		gender = Gender;
+		age = Age;
+		weight = Weight;
+		
+		x = 0;
+		y = 0;
+		
+		speed = 3;  
+		acceleration = 15;
+		runningDistance = 30;
+		bodyLiftRatio = 50;
+	}
+	
+	// Methods to get and set variables, inherited to all sub-classes
+	
+	public void setName(String Name)
+	{
+		name = Name;
+	}
+	
+	public String getName()
+	{
+		return name;
+	}
+	
+	public void setGender(String Gender)
+	{
+		gender = Gender;
+	}
+	
+	public String getGender()
+	{
+		return gender;
+	}
+	
+	public void setAge(int Age)
+	{
+		age = Age;
+	}
+	
+	public int getAge()
+	{
+		return age;
+	}
+	
+	
+	public void setWeight(int Weight)
+	{
+		weight = Weight;
+	}
+	
+	public int getWeight()
+	{
+		return weight;
+	}
+	
+	
+	// Encapsulation: Variables that only their values can be retrieved
+	
+	public int getX()
+	{
+		return x;
+	}
+	
+	public int getY()
+	{
+		return y;
+	}
+	
+	public int getSpeed()
+	{
+		return speed;
+	}
+	
+	public int getAcceleration()
+	{
+		return acceleration;
+	}
+	
+	public int getRunningDistance()
+	{
+		return runningDistance;
+	}
+	
+	public int getbodyLiftRatio()
+	{
+		return bodyLiftRatio;
+	}
+	
+	
+	// Methods
+	
+	public void Talk()
+	{
+		JOptionPane.showMessageDialog(null, "Hello");
+	}
+	
+	public void Lift()
+	{
+		JOptionPane.showMessageDialog(null, "The human has lifted something.");
+	}
+	
+	public void Walk()
+	{
+		historyArray[trackMovesCount] = walk;
+		
+		y+= 3;
+		
+		if ( y > 10 && x != 10)
+		{
+			y = (y - 1) - 10;
+			x+= 1;
+		}
+		
+		++trackMovesCount;
+	}
+	
+	public void Run()
+	{
+		historyArray[trackMovesCount] = run;
+		
+		y+= 5;
+		
+		if ( y > 10 && x != 10)
+		{
+			y = (y - 1) - 10;
+			x+= 1;
+		}
+		
+		++trackMovesCount;
+	}
+	
+	
+	public void Turn()
+	{
+		historyArray[trackMovesCount] = turn;
+		
+		x+= 1;
+		
+		if ( x > 10)
+		{
+			x = 10;
+		}
+		
+		++trackMovesCount;
+	}
+	
+	public void Collide()
+	{
+		y-= 1;
+		
+		if ( y < 0)
+		{
+			y = 10;
+			x-= 1;
+		}
+	}
+	
+	
+	public void DisplayHistoryForHuman()
+	{
+		String message = "Human Move History: \n";
+		
+		for ( int i = 0; i < historyArray.length; i++)
+		{
+			if (historyArray[i] == walk )
+			{
+				message+= "Walked - 3 steps \n";
+			}
+			else if(historyArray[i] == run )
+			{
+				message+= "Ran - 5 steps \n";
+			}
+			else if (historyArray[i] == turn)
+			{
+				message+= "Turned - 1 step \n";
+			}
+		}
+		
+		JOptionPane.showMessageDialog(null,  message );
+	}
+	
+	
+}
